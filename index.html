@@ -1,0 +1,1381 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Marbella Shop | Bolsos Importados de Lujo</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@400;500;600;700&family=Montserrat:wght@300;400;500;600;700&family=Playfair+Display:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --gold: #D4AF37;
+            --light-gold: #F4E4A6;
+            --pink: #E6A4B4;
+            --light-pink: #F8E8E8;
+            --deep-pink: #D48A9E;
+            --dark: #333333;
+            --light: #F9F5F0;
+            --white: #FFFFFF;
+            --shadow: 0 10px 30px rgba(212, 175, 55, 0.15);
+            --transition: all 0.3s ease;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Montserrat', sans-serif;
+            color: var(--dark);
+            background-color: var(--light);
+            line-height: 1.6;
+            overflow-x: hidden;
+        }
+
+        .container {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+
+        /* Welcome Modal */
+        .welcome-modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.8);
+            z-index: 9999;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .welcome-modal.active {
+            display: flex;
+        }
+
+        .modal-content {
+            background: linear-gradient(135deg, var(--white) 0%, var(--light-pink) 100%);
+            padding: 40px;
+            border-radius: 20px;
+            width: 90%;
+            max-width: 500px;
+            text-align: center;
+            box-shadow: var(--shadow);
+            border: 2px solid var(--gold);
+        }
+
+        .modal-logo {
+            width: 180px;
+            height: auto;
+            margin: 0 auto 20px;
+            display: block;
+        }
+
+        .modal-title {
+            font-family: 'Dancing Script', cursive;
+            font-size: 42px;
+            color: var(--gold);
+            margin-bottom: 10px;
+        }
+
+        .modal-subtitle {
+            font-size: 18px;
+            color: var(--dark);
+            margin-bottom: 30px;
+        }
+
+        .form-group {
+            margin-bottom: 20px;
+            text-align: left;
+        }
+
+        .form-group label {
+            display: block;
+            margin-bottom: 8px;
+            font-weight: 500;
+            color: var(--dark);
+        }
+
+        .form-group input {
+            width: 100%;
+            padding: 12px 15px;
+            border: 2px solid var(--light-pink);
+            border-radius: 10px;
+            font-family: 'Montserrat', sans-serif;
+            font-size: 16px;
+            transition: var(--transition);
+        }
+
+        .form-group input:focus {
+            outline: none;
+            border-color: var(--pink);
+        }
+
+        .modal-btn {
+            background: linear-gradient(135deg, var(--pink) 0%, var(--deep-pink) 100%);
+            color: var(--white);
+            border: none;
+            padding: 15px 30px;
+            border-radius: 50px;
+            font-family: 'Montserrat', sans-serif;
+            font-size: 18px;
+            font-weight: 600;
+            cursor: pointer;
+            width: 100%;
+            transition: var(--transition);
+            margin-top: 10px;
+        }
+
+        .modal-btn:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 10px 20px rgba(230, 164, 180, 0.3);
+        }
+
+        /* Header */
+        header {
+            background: linear-gradient(135deg, var(--white) 0%, var(--light-pink) 100%);
+            box-shadow: var(--shadow);
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            padding: 15px 0;
+            border-bottom: 3px solid var(--gold);
+        }
+
+        .header-container {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo-container {
+            display: flex;
+            align-items: center;
+            gap: 20px;
+        }
+
+        .logo-img {
+            height: 80px;
+            width: auto;
+        }
+
+        .logo-text {
+            font-family: 'Dancing Script', cursive;
+            font-size: 42px;
+            font-weight: 700;
+            color: var(--gold);
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.1);
+        }
+
+        .header-actions {
+            display: flex;
+            align-items: center;
+            gap: 25px;
+        }
+
+        .cart-icon {
+            position: relative;
+            cursor: pointer;
+            font-size: 28px;
+            color: var(--pink);
+            transition: var(--transition);
+        }
+
+        .cart-icon:hover {
+            color: var(--deep-pink);
+            transform: scale(1.1);
+        }
+
+        .cart-count {
+            position: absolute;
+            top: -8px;
+            right: -8px;
+            background-color: var(--deep-pink);
+            color: var(--white);
+            font-size: 12px;
+            font-weight: 600;
+            width: 22px;
+            height: 22px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .instagram-btn {
+            background: linear-gradient(45deg, #E4405F, #833AB4);
+            color: var(--white);
+            padding: 12px 25px;
+            border-radius: 50px;
+            text-decoration: none;
+            font-weight: 600;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            transition: var(--transition);
+        }
+
+        .instagram-btn:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 10px 20px rgba(228, 64, 95, 0.3);
+        }
+
+        /* Hero */
+        .hero {
+            background: linear-gradient(135deg, var(--light-pink) 0%, var(--light-gold) 100%);
+            padding: 80px 0;
+            text-align: center;
+            margin-bottom: 60px;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .hero::before {
+            content: "M";
+            position: absolute;
+            font-family: 'Dancing Script', cursive;
+            font-size: 300px;
+            color: rgba(212, 175, 55, 0.1);
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            z-index: 0;
+        }
+
+        .hero-content {
+            position: relative;
+            z-index: 1;
+        }
+
+        .hero-title {
+            font-family: 'Playfair Display', serif;
+            font-size: 52px;
+            color: var(--dark);
+            margin-bottom: 20px;
+        }
+
+        .hero-subtitle {
+            font-size: 22px;
+            color: var(--dark);
+            max-width: 800px;
+            margin: 0 auto 30px;
+        }
+
+        .location-badge {
+            display: inline-block;
+            background-color: var(--gold);
+            color: var(--white);
+            padding: 10px 25px;
+            border-radius: 50px;
+            font-weight: 600;
+            font-size: 18px;
+            box-shadow: var(--shadow);
+        }
+
+        /* Shopping Bag Decoration */
+        .shopping-bag {
+            position: fixed;
+            bottom: 30px;
+            right: 30px;
+            width: 70px;
+            height: 70px;
+            background: linear-gradient(135deg, var(--pink) 0%, var(--deep-pink) 100%);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 32px;
+            color: var(--white);
+            box-shadow: 0 10px 25px rgba(230, 164, 180, 0.4);
+            z-index: 99;
+            cursor: pointer;
+            transition: var(--transition);
+            animation: float 3s ease-in-out infinite;
+        }
+
+        .shopping-bag:hover {
+            transform: scale(1.1);
+        }
+
+        @keyframes float {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-15px); }
+        }
+
+        /* Products Grid */
+        .products-title {
+            font-family: 'Playfair Display', serif;
+            font-size: 42px;
+            text-align: center;
+            margin-bottom: 50px;
+            color: var(--dark);
+            position: relative;
+        }
+
+        .products-title::after {
+            content: '';
+            position: absolute;
+            bottom: -15px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 150px;
+            height: 4px;
+            background: linear-gradient(90deg, var(--pink), var(--gold));
+            border-radius: 2px;
+        }
+
+        .products-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+            gap: 40px;
+            margin-bottom: 80px;
+        }
+
+        .product-card {
+            background-color: var(--white);
+            border-radius: 20px;
+            overflow: hidden;
+            box-shadow: var(--shadow);
+            transition: var(--transition);
+            position: relative;
+            border: 1px solid var(--light-pink);
+        }
+
+        .product-card:hover {
+            transform: translateY(-15px);
+            box-shadow: 0 20px 40px rgba(212, 175, 55, 0.2);
+        }
+
+        .product-image {
+            width: 100%;
+            height: 280px;
+            object-fit: cover;
+            transition: var(--transition);
+        }
+
+        .product-card:hover .product-image {
+            transform: scale(1.05);
+        }
+
+        .product-info {
+            padding: 25px;
+        }
+
+        .product-name {
+            font-family: 'Playfair Display', serif;
+            font-size: 22px;
+            font-weight: 600;
+            margin-bottom: 12px;
+            color: var(--dark);
+            min-height: 60px;
+        }
+
+        .product-description {
+            font-size: 14px;
+            color: #666;
+            margin-bottom: 20px;
+            line-height: 1.8;
+            min-height: 80px;
+        }
+
+        .product-price-container {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 15px;
+        }
+
+        .product-price {
+            font-size: 26px;
+            font-weight: 700;
+            color: var(--gold);
+        }
+
+        .add-to-cart {
+            background: linear-gradient(135deg, var(--pink) 0%, var(--deep-pink) 100%);
+            color: var(--white);
+            border: none;
+            padding: 12px 25px;
+            border-radius: 50px;
+            font-family: 'Montserrat', sans-serif;
+            font-weight: 600;
+            cursor: pointer;
+            transition: var(--transition);
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .add-to-cart:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 10px 20px rgba(230, 164, 180, 0.3);
+        }
+
+        .add-to-cart:disabled {
+            background: #cccccc;
+            cursor: not-allowed;
+            transform: none;
+            box-shadow: none;
+        }
+
+        .out-of-stock {
+            display: inline-block;
+            background-color: #ffebee;
+            color: #c62828;
+            padding: 8px 15px;
+            border-radius: 50px;
+            font-size: 14px;
+            font-weight: 600;
+            margin-top: 10px;
+            border: 1px solid #ffcdd2;
+        }
+
+        /* Cart Sidebar */
+        .cart-sidebar {
+            position: fixed;
+            top: 0;
+            right: -400px;
+            width: 380px;
+            height: 100vh;
+            background: linear-gradient(135deg, var(--white) 0%, var(--light-pink) 100%);
+            box-shadow: -10px 0 40px rgba(0, 0, 0, 0.1);
+            z-index: 1000;
+            transition: var(--transition);
+            padding: 30px;
+            display: flex;
+            flex-direction: column;
+            border-left: 3px solid var(--gold);
+        }
+
+        .cart-sidebar.active {
+            right: 0;
+        }
+
+        .cart-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 30px;
+            padding-bottom: 20px;
+            border-bottom: 2px solid var(--light-pink);
+        }
+
+        .cart-title {
+            font-family: 'Playfair Display', serif;
+            font-size: 28px;
+            color: var(--dark);
+        }
+
+        .close-cart {
+            background: none;
+            border: none;
+            font-size: 24px;
+            color: var(--pink);
+            cursor: pointer;
+            transition: var(--transition);
+        }
+
+        .close-cart:hover {
+            color: var(--deep-pink);
+            transform: rotate(90deg);
+        }
+
+        .cart-items {
+            flex: 1;
+            overflow-y: auto;
+            margin-bottom: 20px;
+        }
+
+        .cart-item {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 15px 0;
+            border-bottom: 1px solid #eee;
+        }
+
+        .cart-item-info {
+            flex: 1;
+        }
+
+        .cart-item-name {
+            font-weight: 600;
+            margin-bottom: 5px;
+        }
+
+        .cart-item-price {
+            color: var(--gold);
+            font-weight: 600;
+        }
+
+        .cart-item-quantity {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            margin-top: 8px;
+        }
+
+        .quantity-btn {
+            background-color: var(--light-pink);
+            border: none;
+            width: 30px;
+            height: 30px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            transition: var(--transition);
+        }
+
+        .quantity-btn:hover {
+            background-color: var(--pink);
+            color: var(--white);
+        }
+
+        .cart-item-total {
+            font-weight: 600;
+            color: var(--dark);
+        }
+
+        .remove-item {
+            background: none;
+            border: none;
+            color: #ff6b6b;
+            cursor: pointer;
+            font-size: 18px;
+            margin-left: 15px;
+            transition: var(--transition);
+        }
+
+        .remove-item:hover {
+            color: #ff3333;
+            transform: scale(1.2);
+        }
+
+        .cart-footer {
+            border-top: 2px solid var(--light-pink);
+            padding-top: 20px;
+        }
+
+        .cart-total {
+            display: flex;
+            justify-content: space-between;
+            font-size: 24px;
+            font-weight: 700;
+            margin-bottom: 25px;
+        }
+
+        .total-price {
+            color: var(--gold);
+        }
+
+        .whatsapp-btn {
+            background: linear-gradient(135deg, #25D366 0%, #128C7E 100%);
+            color: white;
+            border: none;
+            padding: 18px 30px;
+            border-radius: 50px;
+            font-family: 'Montserrat', sans-serif;
+            font-weight: 600;
+            font-size: 18px;
+            cursor: pointer;
+            width: 100%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+            transition: var(--transition);
+        }
+
+        .whatsapp-btn:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 10px 20px rgba(37, 211, 102, 0.3);
+        }
+
+        .clear-cart {
+            background-color: transparent;
+            color: var(--deep-pink);
+            border: 2px solid var(--deep-pink);
+            padding: 12px 25px;
+            border-radius: 50px;
+            font-family: 'Montserrat', sans-serif;
+            font-weight: 600;
+            cursor: pointer;
+            width: 100%;
+            margin-top: 15px;
+            transition: var(--transition);
+        }
+
+        .clear-cart:hover {
+            background-color: var(--deep-pink);
+            color: var(--white);
+        }
+
+        /* Footer */
+        footer {
+            background: linear-gradient(135deg, var(--dark) 0%, #222 100%);
+            color: var(--white);
+            padding: 60px 0 30px;
+            margin-top: 60px;
+        }
+
+        .footer-content {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 40px;
+            margin-bottom: 40px;
+        }
+
+        .footer-logo {
+            font-family: 'Dancing Script', cursive;
+            font-size: 36px;
+            font-weight: 700;
+            color: var(--gold);
+            margin-bottom: 20px;
+        }
+
+        .footer-about p {
+            color: #bbb;
+            margin-bottom: 20px;
+            line-height: 1.8;
+        }
+
+        .footer-contact h3,
+        .footer-social h3 {
+            font-size: 22px;
+            margin-bottom: 25px;
+            color: var(--white);
+            position: relative;
+            padding-bottom: 10px;
+        }
+
+        .footer-contact h3::after,
+        .footer-social h3::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 60px;
+            height: 3px;
+            background: linear-gradient(90deg, var(--pink), var(--gold));
+        }
+
+        .footer-contact p {
+            color: #bbb;
+            margin-bottom: 15px;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .footer-social-icons {
+            display: flex;
+            gap: 15px;
+        }
+
+        .social-icon {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            background-color: rgba(255, 255, 255, 0.1);
+            color: var(--white);
+            text-decoration: none;
+            font-size: 20px;
+            transition: var(--transition);
+        }
+
+        .social-icon:hover {
+            background-color: var(--pink);
+            transform: translateY(-5px);
+        }
+
+        .copyright {
+            text-align: center;
+            padding-top: 30px;
+            border-top: 1px solid #444;
+            color: #999;
+            font-size: 14px;
+        }
+
+        /* Responsive */
+        @media (max-width: 992px) {
+            .hero-title {
+                font-size: 42px;
+            }
+            
+            .products-grid {
+                grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+                gap: 30px;
+            }
+            
+            .cart-sidebar {
+                width: 350px;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .header-container {
+                flex-direction: column;
+                gap: 20px;
+            }
+            
+            .logo-container {
+                flex-direction: column;
+                text-align: center;
+                gap: 10px;
+            }
+            
+            .logo-img {
+                height: 70px;
+            }
+            
+            .logo-text {
+                font-size: 36px;
+            }
+            
+            .hero-title {
+                font-size: 32px;
+            }
+            
+            .hero-subtitle {
+                font-size: 18px;
+            }
+            
+            .cart-sidebar {
+                width: 100%;
+                right: -100%;
+            }
+            
+            .shopping-bag {
+                width: 60px;
+                height: 60px;
+                font-size: 26px;
+                bottom: 20px;
+                right: 20px;
+            }
+        }
+
+        /* Animations */
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .fade-in {
+            animation: fadeIn 0.5s ease forwards;
+        }
+    </style>
+</head>
+<body>
+    <!-- Welcome Modal -->
+    <div class="welcome-modal active" id="welcomeModal">
+        <div class="modal-content">
+            <img src="https://res.cloudinary.com/dq5y6cutn/image/upload/v1765493986/LOGO_MARBELLA_PNG-02_qzzfp1.png" alt="Marbella Shop Logo" class="modal-logo">
+            <h1 class="modal-title">Marbella Shop</h1>
+            <p class="modal-subtitle">Bolsos importados de lujo - Pradera, Valle del Cauca</p>
+            
+            <form id="userForm">
+                <div class="form-group">
+                    <label for="userName">Nombre Completo</label>
+                    <input type="text" id="userName" placeholder="Ingresa tu nombre" required>
+                </div>
+                <div class="form-group">
+                    <label for="userCity">Ciudad</label>
+                    <input type="text" id="userCity" placeholder="Ingresa tu ciudad" required>
+                </div>
+                <button type="submit" class="modal-btn">Entrar al Catálogo</button>
+            </form>
+        </div>
+    </div>
+
+    <!-- Header -->
+    <header>
+        <div class="container header-container">
+            <div class="logo-container">
+                <img src="https://res.cloudinary.com/dq5y6cutn/image/upload/v1765493986/LOGO_MARBELLA_PNG-02_qzzfp1.png" alt="Marbella Shop Logo" class="logo-img">
+                <div class="logo-text">Marbella Shop</div>
+            </div>
+            
+            <div class="header-actions">
+                <div class="cart-icon" id="cartIcon">
+                    <i class="fas fa-shopping-bag"></i>
+                    <span class="cart-count" id="cartCount">0</span>
+                </div>
+                <a href="https://www.instagram.com/marbellashop._?igsh=cDRtdmVieHlwNXUx" target="_blank" class="instagram-btn">
+                    <i class="fab fa-instagram"></i> Síguenos
+                </a>
+            </div>
+        </div>
+    </header>
+
+    <!-- Hero -->
+    <section class="hero">
+        <div class="container hero-content">
+            <h1 class="hero-title">Catálogo Exclusivo de Bolsos</h1>
+            <p class="hero-subtitle">Descubre nuestra colección de bolsos importados de diseñador. Elegancia, sofisticación y calidad en cada pieza.</p>
+            <div class="location-badge">Pradera, Valle del Cauca - Tienda Online</div>
+        </div>
+    </section>
+
+    <!-- Shopping Bag Decoration -->
+    <div class="shopping-bag" id="shoppingBagIcon">
+        <i class="fas fa-shopping-bag"></i>
+    </div>
+
+    <!-- Products -->
+    <section class="container">
+        <h2 class="products-title">Nuestra Colección</h2>
+        <div class="products-grid" id="productsContainer">
+            <!-- Products will be loaded dynamically -->
+        </div>
+    </section>
+
+    <!-- Cart Sidebar -->
+    <div class="cart-sidebar" id="cartSidebar">
+        <div class="cart-header">
+            <h2 class="cart-title">Mi Carrito</h2>
+            <button class="close-cart" id="closeCart">
+                <i class="fas fa-times"></i>
+            </button>
+        </div>
+        
+        <div class="cart-items" id="cartItems">
+            <!-- Cart items will be loaded here -->
+        </div>
+        
+        <div class="cart-footer">
+            <div class="cart-total">
+                <span>Total:</span>
+                <span class="total-price" id="cartTotalPrice">$0 COP</span>
+            </div>
+            
+            <button class="whatsapp-btn" id="whatsappBtn">
+                <i class="fab fa-whatsapp"></i> Confirmar Pedido
+            </button>
+            
+            <button class="clear-cart" id="clearCartBtn">
+                Vaciar Carrito
+            </button>
+        </div>
+    </div>
+
+    <!-- Footer -->
+    <footer>
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-about">
+                    <div class="footer-logo">Marbella Shop</div>
+                    <p>Tienda online especializada en bolsos importados de diseñador. Ofrecemos las últimas tendencias de moda internacional con calidad garantizada.</p>
+                    <p>Ubicados en Pradera, Valle del Cauca. Enviamos a todo Colombia con los más altos estándares de servicio.</p>
+                </div>
+                
+                <div class="footer-contact">
+                    <h3>Contacto</h3>
+                    <p><i class="fas fa-map-marker-alt"></i> Pradera, Valle del Cauca</p>
+                    <p><i class="fas fa-envelope"></i> marianaormu8</p>
+                    <p><i class="fas fa-shopping-bag"></i> Productos 100% Importados</p>
+                </div>
+                
+                <div class="footer-social">
+                    <h3>Síguenos</h3>
+                    <p>Conéctate con nosotros para ver nuestras últimas colecciones y ofertas especiales.</p>
+                    <div class="footer-social-icons">
+                        <a href="https://www.instagram.com/marbellashop._?igsh=cDRtdmVieHlwNXUx" target="_blank" class="social-icon">
+                            <i class="fab fa-instagram"></i>
+                        </a>
+                        <a href="https://wa.me/message/BB46LU6OLGIKA1" target="_blank" class="social-icon">
+                            <i class="fab fa-whatsapp"></i>
+                        </a>
+                        <a href="mailto:marianaormu8" class="social-icon">
+                            <i class="fas fa-envelope"></i>
+                        </a>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="copyright">
+                <p>&copy; 2023 Marbella Shop. Todos los derechos reservados.</p>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        // Datos de productos con precios, descripciones y estado de disponibilidad
+        const products = [
+            {
+                id: 1,
+                name: "BOLSO CEREZA COACH 1.1 BLANCO",
+                price: 120000,
+                image: "https://res.cloudinary.com/dq5y6cutn/image/upload/v1765486148/IMG-20251211-WA0177_gqg6rg.jpg",
+                description: "Bolso Coach blanco con diseño cereza, elegante y versátil para cualquier ocasión.",
+                inStock: true
+            },
+            {
+                id: 2,
+                name: "BOLSO PLAYERO 2 EN 1 CLÁSICO",
+                price: 150000,
+                image: "https://res.cloudinary.com/dq5y6cutn/image/upload/v1765486096/IMG-20251211-WA0175_vrwogl.jpg",
+                description: "Bolso playero clásico 2 en 1, funcional y elegante para el día a día.",
+                inStock: false
+            },
+            {
+                id: 3,
+                name: "LADY DIOR 1.1 PLATEADO",
+                price: 130000,
+                image: "https://res.cloudinary.com/dq5y6cutn/image/upload/v1765485916/IMG-20251211-WA0174_ljwob9.jpg",
+                description: "Bolso Lady Dior plateado, máxima elegancia y sofisticación en diseño icónico.",
+                inStock: true
+            },
+            {
+                id: 4,
+                name: "ZIPCARD COACH 1.1 ROSADA",
+                price: 55000,
+                image: "https://res.cloudinary.com/dq5y6cutn/image/upload/v1765485577/IMG-20251211-WA0155_wkgfdt.jpg",
+                description: "Cartera Coach rosada con diseño Zipcard, compacta y práctica para el día a día.",
+                inStock: true
+            },
+            {
+                id: 5,
+                name: "ZIPCARD COACH 1.1 NEGRA",
+                price: 55000,
+                image: "https://res.cloudinary.com/dq5y6cutn/image/upload/v1765485087/IMG-20251211-WA0148_woqrky.jpg",
+                description: "Cartera Coach negra con diseño Zipcard, elegancia atemporal en tamaño compacto.",
+                inStock: true
+            },
+            {
+                id: 6,
+                name: "BOLSO MIU MIU CORRUGADO 1.1 MARRÓN",
+                price: 85000,
+                image: "https://res.cloudinary.com/dq5y6cutn/image/upload/v1765490259/IMG-20251211-WA0191_sreuk0.jpg",
+                description: "Bolso Miu Miu corrugado marrón, diseño vanguardista y textura única.",
+                inStock: true
+            },
+            {
+                id: 7,
+                name: "PLAYERA MEDIANA CLÁSICA",
+                price: 110000,
+                image: "https://res.cloudinary.com/dq5y6cutn/image/upload/v1765490285/IMG-20251211-WA0184_iirlrq.jpg",
+                description: "Playera mediana clásica, elegancia sencilla y atemporal para cualquier ocasión.",
+                inStock: true
+            },
+            {
+                id: 8,
+                name: "CARTERA ELEGANTE PLATEADA EN TELA",
+                price: 85000,
+                image: "https://res.cloudinary.com/dq5y6cutn/image/upload/v1765490294/IMG-20251211-WA0182_v61n79.jpg",
+                description: "Cartera plateada en tela de alta calidad, diseño elegante y sofisticado.",
+                inStock: true
+            },
+            {
+                id: 9,
+                name: "CARTERA ANILLO EN PIEDRERÍA DORADA",
+                price: 85000,
+                image: "https://res.cloudinary.com/dq5y6cutn/image/upload/v1765490307/IMG-20251211-WA0179_zyfxeh.jpg",
+                description: "Cartera con anillo en piedrería dorada, diseño glamuroso y femenino.",
+                inStock: true
+            },
+            {
+                id: 10,
+                name: "CARTERA ELEGANTE PERLADA BLANCA",
+                price: 85000,
+                image: "https://res.cloudinary.com/dq5y6cutn/image/upload/v1765490673/IMG-20251211-WA0156_clzuzy.jpg",
+                description: "Cartera blanca perlada, elegancia y sofisticación en acabado nacarado.",
+                inStock: true
+            },
+            {
+                id: 11,
+                name: "PLAYERA LV 1.1 2 EN 1",
+                price: 140000,
+                image: "https://res.cloudinary.com/dq5y6cutn/image/upload/v1765490685/IMG-20251211-WA0157_burcmo.jpg",
+                description: "Playera Louis Vuitton 2 en 1, versatilidad y lujo en un solo diseño.",
+                inStock: true
+            },
+            {
+                id: 12,
+                name: "LADY DIOR 1.1 ROJO",
+                price: 130000,
+                image: "https://res.cloudinary.com/dq5y6cutn/image/upload/v1765490686/IMG-20251211-WA0158_ycrgjz.jpg",
+                description: "Bolso Lady Dior rojo pasión, elegancia audaz y sofisticación extrema.",
+                inStock: true
+            },
+            {
+                id: 13,
+                name: "BOLSO ELEGANTE BLANCO",
+                price: 75000,
+                image: "https://res.cloudinary.com/dq5y6cutn/image/upload/v1765490709/IMG-20251211-WA0173_xzmrwn.jpg",
+                description: "Bolso blanco elegante, diseño limpio y sofisticado para ocasiones especiales.",
+                inStock: true
+            },
+            {
+                id: 14,
+                name: "ZIPCARD COACH 1.1 BLANCO KHAKI",
+                price: 55000,
+                image: "https://res.cloudinary.com/dq5y6cutn/image/upload/v1765490753/IMG-20251211-WA0188_ursnkq.jpg",
+                description: "Cartera Coach blanco khaki, diseño Zipcard moderno y versátil.",
+                inStock: true
+            },
+            {
+                id: 15,
+                name: "MINI LADY DIOR 1.1 NEGRO",
+                price: 99000,
+                image: "https://res.cloudinary.com/dq5y6cutn/image/upload/v1765490777/IMG-20251211-WA0191_itfxyk.jpg",
+                description: "Mini bolso Lady Dior negro, elegancia compacta y sofisticación en miniatura.",
+                inStock: true
+            },
+            {
+                id: 16,
+                name: "BOLSO COACH CORAZONES 1.1 BEIGE KHAKI",
+                price: 120000,
+                image: "https://res.cloudinary.com/dq5y6cutn/image/upload/v1765491021/IMG-20251211-WA0149_hl3rnw.jpg",
+                description: "Bolso Coach beige khaki con diseño de corazones, romántico y elegante.",
+                inStock: true
+            },
+            {
+                id: 17,
+                name: "BOLSO CEREZA 1.1 BEIGE KHAKI",
+                price: 120000,
+                image: "https://res.cloudinary.com/dq5y6cutn/image/upload/v1765491039/IMG-20251211-WA0150_eabpl3.jpg",
+                description: "Bolso cereza beige khaki, diseño fresco y elegante para el día a día.",
+                inStock: true
+            },
+            {
+                id: 18,
+                name: "BOLSO COACH CLÁSICO MINI 1.1 MARRÓN",
+                price: 110000,
+                image: "https://res.cloudinary.com/dq5y6cutn/image/upload/v1765491072/IMG-20251211-WA0151_ovlypv.jpg",
+                description: "Bolso Coach clásico mini marrón, elegancia atemporal en tamaño reducido.",
+                inStock: true
+            },
+            {
+                id: 19,
+                name: "BOLSO COACH ROLLING BAG 1.1 MARRÓN",
+                price: 110000,
+                image: "https://res.cloudinary.com/dq5y6cutn/image/upload/v1765491226/IMG-20251211-WA0152_x9lrm7.jpg",
+                description: "Bolso Coach Rolling Bag marrón, diseño clásico y funcionalidad práctica.",
+                inStock: false
+            }
+        ];
+
+        // Variables globales
+        let cart = [];
+        let userInfo = null;
+
+        // Elementos DOM
+        const welcomeModal = document.getElementById('welcomeModal');
+        const userForm = document.getElementById('userForm');
+        const cartIcon = document.getElementById('cartIcon');
+        const cartCount = document.getElementById('cartCount');
+        const cartSidebar = document.getElementById('cartSidebar');
+        const closeCart = document.getElementById('closeCart');
+        const cartItems = document.getElementById('cartItems');
+        const cartTotalPrice = document.getElementById('cartTotalPrice');
+        const whatsappBtn = document.getElementById('whatsappBtn');
+        const clearCartBtn = document.getElementById('clearCartBtn');
+        const productsContainer = document.getElementById('productsContainer');
+        const shoppingBagIcon = document.getElementById('shoppingBagIcon');
+
+        // Formatear precio en COP
+        function formatPrice(price) {
+            return new Intl.NumberFormat('es-CO', {
+                style: 'currency',
+                currency: 'COP',
+                minimumFractionDigits: 0
+            }).format(price);
+        }
+
+        // Enviar información del usuario al correo (simulación)
+        function sendUserInfoToEmail(userData) {
+            // En un entorno real, esto enviaría los datos al servidor
+            console.log('Información del usuario para enviar por correo:', userData);
+            console.log('Email de destino: marianaormu8');
+            
+            // Aquí normalmente harías una petición AJAX al servidor
+            // Por ahora solo mostramos en consola
+            alert(`¡Bienvenida ${userData.name}! Tu información ha sido registrada.`);
+        }
+
+        // Manejar el formulario de bienvenida
+        userForm.addEventListener('submit', function(e) {
+            e.preventDefault();
+            
+            const userName = document.getElementById('userName').value;
+            const userCity = document.getElementById('userCity').value;
+            
+            userInfo = {
+                name: userName,
+                city: userCity,
+                date: new Date().toLocaleString()
+            };
+            
+            // Enviar información por correo
+            sendUserInfoToEmail(userInfo);
+            
+            // Ocultar modal
+            welcomeModal.classList.remove('active');
+            
+            // Mostrar mensaje de bienvenida
+            showNotification(`¡Bienvenida a Marbella Shop, ${userName}!`);
+        });
+
+        // Renderizar productos
+        function renderProducts() {
+            productsContainer.innerHTML = '';
+            
+            products.forEach((product, index) => {
+                const productCard = document.createElement('div');
+                productCard.className = 'product-card fade-in';
+                productCard.style.animationDelay = `${index * 0.1}s`;
+                
+                productCard.innerHTML = `
+                    <img src="${product.image}" alt="${product.name}" class="product-image">
+                    <div class="product-info">
+                        <h3 class="product-name">${product.name}</h3>
+                        <p class="product-description">${product.description}</p>
+                        <div class="product-price-container">
+                            <div class="product-price">${formatPrice(product.price)}</div>
+                            <button class="add-to-cart" data-id="${product.id}" ${!product.inStock ? 'disabled' : ''}>
+                                <i class="fas fa-cart-plus"></i>
+                                ${product.inStock ? 'Añadir' : 'Agotado'}
+                            </button>
+                        </div>
+                        ${!product.inStock ? '<div class="out-of-stock">AGOTADO</div>' : ''}
+                    </div>
+                `;
+                
+                productsContainer.appendChild(productCard);
+            });
+            
+            // Agregar eventos a los botones de carrito
+            document.querySelectorAll('.add-to-cart').forEach(button => {
+                button.addEventListener('click', addToCart);
+            });
+        }
+
+        // Añadir producto al carrito
+        function addToCart(e) {
+            const productId = parseInt(e.currentTarget.getAttribute('data-id'));
+            const product = products.find(p => p.id === productId);
+            
+            if (!product) return;
+            
+            // Verificar si ya está en el carrito
+            const existingItem = cart.find(item => item.id === productId);
+            
+            if (existingItem) {
+                existingItem.quantity += 1;
+            } else {
+                cart.push({
+                    ...product,
+                    quantity: 1
+                });
+            }
+            
+            updateCart();
+            showNotification(`${product.name} añadido al carrito`);
+        }
+
+        // Actualizar carrito
+        function updateCart() {
+            // Actualizar contador
+            const totalItems = cart.reduce((sum, item) => sum + item.quantity, 0);
+            cartCount.textContent = totalItems;
+            
+            // Actualizar lista del carrito
+            cartItems.innerHTML = '';
+            
+            if (cart.length === 0) {
+                cartItems.innerHTML = '<p style="text-align: center; color: #999; padding: 20px;">Tu carrito está vacío</p>';
+            } else {
+                cart.forEach(item => {
+                    const cartItem = document.createElement('div');
+                    cartItem.className = 'cart-item';
+                    
+                    cartItem.innerHTML = `
+                        <div class="cart-item-info">
+                            <div class="cart-item-name">${item.name}</div>
+                            <div class="cart-item-price">${formatPrice(item.price)} c/u</div>
+                            <div class="cart-item-quantity">
+                                <button class="quantity-btn decrease-btn" data-id="${item.id}">-</button>
+                                <span>${item.quantity}</span>
+                                <button class="quantity-btn increase-btn" data-id="${item.id}">+</button>
+                            </div>
+                        </div>
+                        <div style="text-align: right;">
+                            <div class="cart-item-total">${formatPrice(item.price * item.quantity)}</div>
+                            <button class="remove-item" data-id="${item.id}">
+                                <i class="fas fa-trash"></i>
+                            </button>
+                        </div>
+                    `;
+                    
+                    cartItems.appendChild(cartItem);
+                });
+                
+                // Agregar eventos a los botones de cantidad
+                document.querySelectorAll('.decrease-btn').forEach(btn => {
+                    btn.addEventListener('click', decreaseQuantity);
+                });
+                
+                document.querySelectorAll('.increase-btn').forEach(btn => {
+                    btn.addEventListener('click', increaseQuantity);
+                });
+                
+                document.querySelectorAll('.remove-item').forEach(btn => {
+                    btn.addEventListener('click', removeFromCart);
+                });
+            }
+            
+            // Actualizar total
+            const total = cart.reduce((sum, item) => sum + (item.price * item.quantity), 0);
+            cartTotalPrice.textContent = formatPrice(total);
+        }
+
+        // Disminuir cantidad
+        function decreaseQuantity(e) {
+            const productId = parseInt(e.currentTarget.getAttribute('data-id'));
+            const item = cart.find(item => item.id === productId);
+            
+            if (item && item.quantity > 1) {
+                item.quantity -= 1;
+                updateCart();
+            }
+        }
+
+        // Aumentar cantidad
+        function increaseQuantity(e) {
+            const productId = parseInt(e.currentTarget.getAttribute('data-id'));
+            const item = cart.find(item => item.id === productId);
+            
+            if (item) {
+                item.quantity += 1;
+                updateCart();
+            }
+        }
+
+        // Remover del carrito
+        function removeFromCart(e) {
+            const productId = parseInt(e.currentTarget.getAttribute('data-id'));
+            cart = cart.filter(item => item.id !== productId);
+            updateCart();
+            showNotification('Producto eliminado del carrito');
+        }
+
+        // Vaciar carrito
+        function clearCart() {
+            if (cart.length === 0) return;
+            
+            if (confirm('¿Estás segura de que quieres vaciar el carrito?')) {
+                cart = [];
+                updateCart();
+                showNotification('Carrito vaciado');
+            }
+        }
+
+        // Enviar pedido por WhatsApp
+        function sendWhatsAppOrder() {
+            if (cart.length === 0) {
+                showNotification('Tu carrito está vacío. Añade productos antes de confirmar.');
+                return;
+            }
+            
+            let message = `¡Hola Marbella Shop! Quiero hacer un pedido:\n\n`;
+            message += `*Cliente:* ${userInfo ? userInfo.name : 'No registrado'}\n`;
+            message += `*Ciudad:* ${userInfo ? userInfo.city : 'No especificada'}\n\n`;
+            message += `*Mi Pedido:*\n`;
+            
+            cart.forEach(item => {
+                message += `• ${item.name} (x${item.quantity}): ${formatPrice(item.price * item.quantity)}\n`;
+            });
+            
+            const total = cart.reduce((sum, item) => sum + (item.price * item.quantity), 0);
+            message += `\n*Total a pagar:* ${formatPrice(total)}\n\n`;
+            message += `¡Gracias!`;
+            
+            // Codificar mensaje para URL
+            const encodedMessage = encodeURIComponent(message);
+            const whatsappUrl = `https://wa.me/message/BB46LU6OLGIKA1?text=${encodedMessage}`;
+            
+            // Abrir en nueva pestaña
+            window.open(whatsappUrl, '_blank');
+        }
+
+        // Mostrar notificación
+        function showNotification(message) {
+            // Crear elemento de notificación
+            const notification = document.createElement('div');
+            notification.textContent = message;
+            notification.style.cssText = `
+                position: fixed;
+                top: 20px;
+                right: 20px;
+                background: linear-gradient(135deg, var(--pink) 0%, var(--deep-pink) 100%);
+                color: white;
+                padding: 15px 25px;
+                border-radius: 10px;
+                box-shadow: 0 10px 25px rgba(0,0,0,0.2);
+                z-index: 1000;
+                font-weight: 600;
+                animation: fadeIn 0.3s ease;
+                max-width: 350px;
+                border-left: 5px solid var(--gold);
+            `;
+            
+            document.body.appendChild(notification);
+            
+            // Remover después de 3 segundos
+            setTimeout(() => {
+                notification.style.opacity = '0';
+                notification.style.transition = 'opacity 0.5s ease';
+                setTimeout(() => {
+                    if (notification.parentNode) {
+                        notification.parentNode.removeChild(notification);
+                    }
+                }, 500);
+            }, 3000);
+        }
+
+        // Inicializar página
+        document.addEventListener('DOMContentLoaded', () => {
+            renderProducts();
+            updateCart();
+            
+            // Event listeners
+            cartIcon.addEventListener('click', () => {
+                cartSidebar.classList.add('active');
+            });
+            
+            shoppingBagIcon.addEventListener('click', () => {
+                cartSidebar.classList.add('active');
+            });
+            
+            closeCart.addEventListener('click', () => {
+                cartSidebar.classList.remove('active');
+            });
+            
+            clearCartBtn.addEventListener('click', clearCart);
+            whatsappBtn.addEventListener('click', sendWhatsAppOrder);
+            
+            // Cerrar carrito al hacer clic fuera
+            document.addEventListener('click', (e) => {
+                if (!cartSidebar.contains(e.target) && 
+                    !cartIcon.contains(e.target) && 
+                    !shoppingBagIcon.contains(e.target) &&
+                    cartSidebar.classList.contains('active')) {
+                    cartSidebar.classList.remove('active');
+                }
+            });
+        });
+    </script>
+</body>
+</html>
